@@ -9,21 +9,15 @@ public class DishOrderDeterminer {
             dishes.add(i);
         }
         LinkedList<Integer> eatenDishes = new LinkedList<>();
-        //int totalCountOfIterationsBeforeAutoBreak = 0;
         int countForDishLoop = 1;
         while (eatenDishes.size() != dishes.size()) {
-        /*totalCountOfIterationsBeforeAutoBreak++;
-            if (totalCountOfIterationsBeforeAutoBreak > 100) {
-                break;
-            }*/
             for (int i = 0; i < dishes.size(); i++) {
-                //System.out.println(countForDishLoop + "|" + i + "|" + dishes.get(i) + "||1");
                 if (dishes.get(i) == 0) {
                     continue;
                 }
-                if (countForDishLoop == 4) {
+                if (countForDishLoop == everyDishNumberToEat) {
                     countForDishLoop = 0;
-                    //for (int a = 0; a < 100; a++) {
+                    while (true) {
                         if (dishes.get(i) != 0) {
                             eatenDishes.add(dishes.get(i));
                             dishes.set(i, 0);
@@ -34,14 +28,9 @@ public class DishOrderDeterminer {
                                 i = 0;
                             }
                         }
-                    //}
-                    //System.out.println(eatenDishes.getLast());
-                    /*if (i == dishes.size()) {
-                        countForDishLoop = 0;
-                    }*/
+                    }
                 }
                 countForDishLoop++;
-                //System.out.println(countForDishLoop + "|" + i + "|" + dishes.get(i) + "||2");
             }
         }
         return eatenDishes;
