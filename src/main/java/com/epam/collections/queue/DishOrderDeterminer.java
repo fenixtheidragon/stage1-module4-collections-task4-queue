@@ -4,44 +4,31 @@ import java.util.*;
 
 public class DishOrderDeterminer {
     public List<Integer> determineDishOrder(int numberOfDishes, int everyDishNumberToEat) {
-        System.out.println(numberOfDishes + "|||" + everyDishNumberToEat);
-
         LinkedList<Integer> dishes = new LinkedList<>();
-        LinkedList<Integer> eatenDishes = new LinkedList<>();
-
-        for (int a = 1; a <= numberOfDishes; a++) {
-            dishes.add(a);
+        for (int i = 1; i <= numberOfDishes; i++) {
+            dishes.add(i);
         }
-        int absoluteBreakCount = 0;
-        int nextDishIndexLoop = 0;
-        int nextDishIndex = 0;
-
+        LinkedList<Integer> eatenDishes = new LinkedList<>();
+        //int totalCountOfIterationsBeforeAutoBreak = 0;
+        int countForDishLoop = 1;
         while (!dishes.isEmpty()) {
-            absoluteBreakCount++;
-            if (absoluteBreakCount >= 500) {
-                System.out.println("Infinite loop");
+            /*totalCountOfIterationsBeforeAutoBreak++;
+            if (totalCountOfIterationsBeforeAutoBreak > 100) {
                 break;
-            }
-            System.out.println(nextDishIndex + "|" + nextDishIndexLoop);
-            if (nextDishIndexLoop == everyDishNumberToEat - 1) {
-                if (dishes.isEmpty()) {
-                    break;
+            }*/
+            for (int i = 0; i < dishes.size(); i++) {
+                //System.out.println(countForDishLoop + "|" + i + "|" + dishes.get(i) + "||1");
+                if (countForDishLoop == 4) {
+                    eatenDishes.add(dishes.remove(i));
+                    //System.out.println(eatenDishes.getLast());
+                    countForDishLoop = 1;
+                    if (i == dishes.size()) {
+                        countForDishLoop = 0;
+                    }
                 }
-                System.out.println(dishes.get(nextDishIndex));
-                eatenDishes.add(dishes.remove(nextDishIndex));
-                System.out.println(eatenDishes.getLast());
-                System.out.println("nextDishIndexLoop rotation|");
-                nextDishIndexLoop = 0;
-                continue;
+                countForDishLoop++;
+                //System.out.println(countForDishLoop + "|" + i + "|" + dishes.get(i) + "||2");
             }
-            if (nextDishIndex >= dishes.size() - 1) {
-                System.out.println("nextDishIndex rotation|" + dishes.size());
-                nextDishIndex = 0;
-                //nextDishIndexLoop++;
-                continue;
-            }
-            nextDishIndexLoop++;
-            nextDishIndex++;
         }
         return eatenDishes;
     }
